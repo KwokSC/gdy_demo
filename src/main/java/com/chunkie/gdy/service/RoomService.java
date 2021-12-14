@@ -1,5 +1,6 @@
 package com.chunkie.gdy.service;
 
+import com.chunkie.gdy.common.ResponseObj;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,6 +14,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoomService {
 
-    public
 
 }

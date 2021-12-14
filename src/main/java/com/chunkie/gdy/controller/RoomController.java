@@ -36,7 +36,8 @@ public class RoomController {
     RoomService roomService;
 
     @RequestMapping("/create")
-    public void createRoom(@RequestBody Room room){
+    public void createRoom(){
+
 
 
 
