@@ -13,13 +13,9 @@ import lombok.Data;
 @Data
 public class ResponseObj {
 
-    private final static int NORMAL = 200;
-
-    private final static int EXCEPTION =500;
-
     private Object data;
 
-    private Integer code;
+    private int code;
 
     private String msg;
 }

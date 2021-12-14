@@ -1,5 +1,7 @@
 package com.chunkie.gdy.controller;
 
+import com.chunkie.gdy.common.Constants;
+import com.chunkie.gdy.common.ResponseObj;
 import com.chunkie.gdy.entity.Card;
 import com.chunkie.gdy.entity.Player;
 import com.chunkie.gdy.entity.Room;
@@ -38,9 +40,6 @@ public class RoomController {
     @RequestMapping("/create")
     public void createRoom(){
 
-
-
-
     }
 
     @RequestMapping("/join")
@@ -49,7 +48,20 @@ public class RoomController {
     }
 
     @RequestMapping("/start")
-    public void gameStart(){
-        List<Card> cardDeck = cardService.shuffle();
+    public ResponseObj gameStart(){
+        ResponseObj responseObj = new ResponseObj();
+        try{
+            List<Card> cardDeck = cardService.shuffle();
+            responseObj.setData(cardDeck);
+            responseObj.setCode(Constants.Code.NORMAL);
+            responseObj.setMsg(Constants.Msgs.SUCCESS);
+            return responseObj;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            responseObj.setMsg(Constants.Msgs.FAIL);
+            responseObj.setCode(Constants.Code.EXCEPTION);
+            return responseObj;
+        }
     }
 }
