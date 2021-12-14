@@ -18,6 +18,8 @@ public class Player {
 
     private String id;
 
+    private String name;
+
     private Boolean ready;
 
     private Integer score;

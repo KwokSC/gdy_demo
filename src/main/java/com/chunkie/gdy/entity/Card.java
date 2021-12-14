@@ -38,5 +38,4 @@ public class Card {
         return this.color + this.point;
     }
 
-
 }
