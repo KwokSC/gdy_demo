@@ -1,6 +1,6 @@
 package com.chunkie.gdy.service;
 
-import com.chunkie.gdy.common.ResponseObj;
+import com.chunkie.gdy.entity.Player;
 import org.springframework.stereotype.Service;
 
 /**

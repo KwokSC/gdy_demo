@@ -3,6 +3,7 @@ package com.chunkie.gdy.entity;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Observable;
 
 /**
  * @Description:
@@ -13,7 +14,7 @@ import java.util.List;
  */
 
 @Data
-public class Room {
+public class Room extends Observable {
 
     private String id;
 
@@ -21,9 +22,6 @@ public class Room {
 
     private Integer password;
 
-    private Player host;
-
-    private List<Player> players;
-
     private Boolean onGoing;
+
 }

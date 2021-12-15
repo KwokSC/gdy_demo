@@ -21,7 +21,7 @@ public class CardService {
     public List<Card> shuffle(){
         String[] colors = {"square", "heart", "spade", "club"};
         String[] points = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
-        List<Card> cardDeck = new ArrayList<Card>();
+        List<Card> cardDeck = new ArrayList<>();
         Random random = new Random();
         for(int i = 0; i < 52; i++) {
             int c = random.nextInt(4);
