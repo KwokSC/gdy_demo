@@ -22,7 +22,7 @@ public class Room extends Observable {
 
     private Integer password;
 
-    private Boolean onGoing;
+    private Boolean onGoing = Boolean.FALSE;
 
     private Player host;
 

@@ -18,9 +18,9 @@ import java.util.Observer;
 @Data
 public class Player extends User implements Observer {
 
-    private Boolean ready;
+    private Boolean ready = Boolean.FALSE;
 
-    private Integer score;
+    private Integer score = 0;
 
     List<Card> handCard = new ArrayList<>();
 
