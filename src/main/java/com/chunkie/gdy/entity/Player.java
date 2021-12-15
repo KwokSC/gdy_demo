@@ -30,4 +30,16 @@ public class Player implements Observer {
     public void update(Observable observable, Object arg) {
 
     }
+
+    public void draw(){
+
+    }
+
+    public void discard(){
+
+    }
+
+    public void win(){
+
+    }
 }

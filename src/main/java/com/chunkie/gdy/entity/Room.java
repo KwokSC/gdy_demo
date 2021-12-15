@@ -24,4 +24,6 @@ public class Room extends Observable {
 
     private Boolean onGoing;
 
+    private List<Player> playerList;
+
 }
