@@ -14,7 +14,7 @@
     </select>
 
     <insert id="createRoom" parameterType="com.chunkie.gdy.entity.Room">
-        insert into room
-
+        insert into room(id, password, player_num, on_going)
+        values (#{id}, #{password}, #{playerNum}, #{onGoing})
     </insert>
 </mapper>

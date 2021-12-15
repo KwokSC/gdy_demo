@@ -16,11 +16,9 @@ import java.util.Observer;
  */
 
 @Data
-public class Player implements Observer {
+public class Player extends User implements Observer {
 
     private Boolean ready;
-
-    private Boolean capableDiscard;
 
     private Integer score;
 
@@ -28,6 +26,18 @@ public class Player implements Observer {
 
     @Override
     public void update(Observable observable, Object arg) {
+
+    }
+
+    public void getReady(){
+        this.setReady(Boolean.TRUE);
+    }
+
+    public void cancelReady(){
+        this.setReady(Boolean.FALSE);
+    }
+
+    public void display(){
 
     }
 
