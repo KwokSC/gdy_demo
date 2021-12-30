@@ -39,9 +39,7 @@ public class Room {
     }
 
     public Boolean addPlayer(Player player) {
-        if(this.players.add(player))
-            return true;
-        return false;
+        return this.players.add(player);
     }
 
 }

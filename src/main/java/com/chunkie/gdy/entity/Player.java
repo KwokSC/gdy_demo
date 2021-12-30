@@ -20,31 +20,29 @@ public class Player {
 
     private String name;
 
-    private Boolean ready = Boolean.FALSE;
+    private Boolean ready;
 
-    private Integer score = 0;
+    private Integer score;
 
-    List<Card> handCard = new ArrayList<>();
+    private List<Card> handCard;
 
-    public void getReady(){
-        this.setReady(Boolean.TRUE);
+    public Player(String id, String name){
+        this.id = id;
+        this.name = name;
+        this.ready = false;
+        this.score = 0;
+        this.handCard = new ArrayList<>();
     }
 
-    public void cancelReady(){
-        this.setReady(Boolean.FALSE);
+    public Boolean draw(Card card) {
+        return this.handCard.add(card);
     }
 
-    public void draw(Card card) {
-        this.handCard.add(card);
+    public Boolean discard(List<Card> discardList) {
+        return this.handCard.removeAll(discardList);
     }
 
-    public void discard(List<Card> discardList) {
-        this.handCard.removeAll(discardList);
-    }
-    
     public Boolean checkHand() {
-        if(this.getHandCard().isEmpty())
-            return true;
-        return false;
+        return this.getHandCard().isEmpty();
     }
 }
