@@ -2,8 +2,8 @@ package com.chunkie.gdy.entity;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 /**
  * @Description:
@@ -14,8 +14,7 @@ import java.util.Observable;
  */
 
 @Data
-public class Room extends Observable {
-
+public class Room {
     private String id;
 
     private Integer playerNum;
@@ -26,5 +25,23 @@ public class Room extends Observable {
 
     private Player host;
 
+    private List<Player> players = new ArrayList<>(playerNum);
+
+    public Room(){
+
+    }
+
+    public Room(Integer playerNum, Integer password, Player host) {
+        this.playerNum = playerNum;
+        this.password = password;
+        this.host = host;
+        this.players.add(host);
+    }
+
+    public Boolean addPlayer(Player player) {
+        if(this.players.add(player))
+            return true;
+        return false;
+    }
 
 }

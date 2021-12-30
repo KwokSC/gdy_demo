@@ -4,8 +4,6 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * @Description:
@@ -16,18 +14,17 @@ import java.util.Observer;
  */
 
 @Data
-public class Player extends User implements Observer {
+public class Player {
+
+    private String id;
+
+    private String name;
 
     private Boolean ready = Boolean.FALSE;
 
     private Integer score = 0;
 
     List<Card> handCard = new ArrayList<>();
-
-    @Override
-    public void update(Observable observable, Object arg) {
-
-    }
 
     public void getReady(){
         this.setReady(Boolean.TRUE);
@@ -37,19 +34,17 @@ public class Player extends User implements Observer {
         this.setReady(Boolean.FALSE);
     }
 
-    public void display(){
-
+    public void draw(Card card) {
+        this.handCard.add(card);
     }
 
-    public void draw(){
-
+    public void discard(List<Card> discardList) {
+        this.handCard.removeAll(discardList);
     }
-
-    public void discard(){
-
-    }
-
-    public void win(){
-
+    
+    public Boolean checkHand() {
+        if(this.getHandCard().isEmpty())
+            return true;
+        return false;
     }
 }
