@@ -2,9 +2,9 @@ package com.chunkie.gdy.entity;
 
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @Description:
@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @Data
-public class Room implements Serializable {
+public class Room {
 
     private String id;
 
@@ -30,11 +30,13 @@ public class Room implements Serializable {
     private List<Player> players;
 
     public Room(){
+        this.id = UUID.randomUUID().toString().substring(16);
         this.onGoing = false;
         this.players = new ArrayList<>();
     }
 
     public Room(Integer playerNum, Integer password, Player host) {
+        this.id = UUID.randomUUID().toString().substring(16);
         this.playerNum = playerNum;
         this.password = password;
         this.onGoing = false;

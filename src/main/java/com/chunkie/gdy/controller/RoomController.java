@@ -2,8 +2,12 @@ package com.chunkie.gdy.controller;
 
 import com.chunkie.gdy.common.ResponseObj;
 import com.chunkie.gdy.entity.Room;
+import com.chunkie.gdy.util.RedisUtil;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Description:
@@ -17,10 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/room")
 public class RoomController {
 
+    RedisUtil redisUtil = new RedisUtil();
+
     @RequestMapping("/create")
-    public ResponseObj createRoom(Room room){
+    public ResponseObj createRoom(@RequestBody Room room, HttpServletRequest request){
         ResponseObj responseObj = new ResponseObj();
-        
+
         return responseObj;
     }
 
