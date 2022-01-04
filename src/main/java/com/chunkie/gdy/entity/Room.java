@@ -27,10 +27,6 @@ public class Room {
 
     private List<Player> players = new ArrayList<>(playerNum);
 
-    public Room(){
-
-    }
-
     public Room(Integer playerNum, Integer password, Player host) {
         this.playerNum = playerNum;
         this.password = password;
@@ -38,8 +34,11 @@ public class Room {
         this.players.add(host);
     }
 
-    public Boolean addPlayer(Player player) {
+    public Boolean addPlayer(Player player){
         return this.players.add(player);
     }
 
+    public Boolean removePlayer(Player player){
+        return this.players.remove(player);
+    }
 }
