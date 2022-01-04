@@ -35,14 +35,12 @@ public class Room {
         this.players = new ArrayList<>();
     }
 
-    public Room(Integer playerNum, Integer password, Player host) {
+    public Room(Integer playerNum, Integer password) {
         this.id = UUID.randomUUID().toString().substring(16);
         this.playerNum = playerNum;
         this.password = password;
         this.onGoing = false;
-        this.host = host;
         this.players = new ArrayList<>(playerNum);
-        this.players.add(host);
     }
 
     public Boolean addPlayer(Player player){
