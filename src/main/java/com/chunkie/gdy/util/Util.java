@@ -101,9 +101,8 @@ public class Util {
     }
 
     @Test
-    public void tests() {
+    public void test() {
         List<Card> cardDeck = shuffle();
         System.out.println(cardDeck.toString());
-
     }
 }
