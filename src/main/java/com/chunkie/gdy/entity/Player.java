@@ -2,6 +2,7 @@ package com.chunkie.gdy.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +15,7 @@ import java.util.List;
  */
 
 @Data
-public class Player {
-
-    private String id;
-
-    private String name;
+public class Player extends User {
 
     private Boolean ready;
 
@@ -27,8 +24,6 @@ public class Player {
     private List<Card> handCard;
 
     public Player(String id, String name){
-        this.id = id;
-        this.name = name;
         this.ready = false;
         this.score = 0;
         this.handCard = new ArrayList<>();

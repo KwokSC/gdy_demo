@@ -19,7 +19,7 @@ public class GameController {
     @RequestMapping("/start")
     public ResponseObj initialGame(){
         ResponseObj responseObj = new ResponseObj();
-
+        
         return responseObj;
     }
 }

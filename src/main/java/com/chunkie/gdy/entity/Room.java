@@ -2,6 +2,7 @@ package com.chunkie.gdy.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,23 +15,31 @@ import java.util.List;
  */
 
 @Data
-public class Room {
+public class Room implements Serializable {
+
     private String id;
 
     private Integer playerNum;
 
     private Integer password;
 
-    private Boolean onGoing = Boolean.FALSE;
+    private Boolean onGoing;
 
     private Player host;
 
-    private List<Player> players = new ArrayList<>(playerNum);
+    private List<Player> players;
+
+    public Room(){
+        this.onGoing = false;
+        this.players = new ArrayList<>();
+    }
 
     public Room(Integer playerNum, Integer password, Player host) {
         this.playerNum = playerNum;
         this.password = password;
+        this.onGoing = false;
         this.host = host;
+        this.players = new ArrayList<>(playerNum);
         this.players.add(host);
     }
 

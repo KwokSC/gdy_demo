@@ -2,10 +2,6 @@ package com.chunkie.gdy.entity;
 
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 /**
  * @Description:
  * @ClassName: Card
