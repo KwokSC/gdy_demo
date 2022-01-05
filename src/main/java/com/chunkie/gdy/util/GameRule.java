@@ -28,7 +28,7 @@ public class GameRule {
         if (cards.size() >= 3) {
 
             CardType result = null;
-            Integer count = Util.countJoker(cards);
+            Integer count = Utils.countJoker(cards);
 
             switch (count) {
 
@@ -140,7 +140,7 @@ public class GameRule {
         Card card3 = new Card("club", 10);
         Card card4 = new Card("club", 10);
         Card card5 = new Card("club", 10);
-        List<Card> cards = Util.trim(Arrays.asList(card1, card2, card3, card4, card5));
+        List<Card> cards = Utils.trim(Arrays.asList(card1, card2, card3, card4, card5));
         System.out.println(rule(cards));
     }
 }

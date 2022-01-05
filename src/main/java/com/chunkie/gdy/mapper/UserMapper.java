@@ -7,7 +7,7 @@ package com.chunkie.gdy.mapper;
  * @Date: 2021/12/15 10:44
  * @Version: 1.0
  */
-public interface RoomMapper {
+public interface UserMapper {
 
 
 }

@@ -3,9 +3,7 @@ package com.chunkie.gdy.controller;
 import com.chunkie.gdy.common.ResponseObj;
 import com.chunkie.gdy.entity.Player;
 import com.chunkie.gdy.entity.Room;
-import com.chunkie.gdy.entity.User;
-import com.chunkie.gdy.util.RedisUtil;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.chunkie.gdy.util.RedisUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,12 +21,13 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/room")
 public class RoomController {
 
-    RedisUtil redisUtil = new RedisUtil();
+    RedisUtils redisUtils = new RedisUtils();
 
     @RequestMapping("/create")
-    public ResponseObj createRoom(@RequestBody Room room, HttpServletRequest request){
+    public ResponseObj createRoom(Integer playerNum, Integer password, HttpServletRequest request){
         ResponseObj responseObj = new ResponseObj();
-        Player host = (Player) redisUtil.get(request.getHeader("token"));
+        Room room = new Room(playerNum, password);
+        Player host = (Player) redisUtils.get(request.getHeader("token"));
         room.setHost(host);
         room.getPlayers().add(host);
         return responseObj;

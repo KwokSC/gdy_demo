@@ -14,7 +14,7 @@ import java.util.Random;
  * @Date: 2021/12/30 9:42
  * @Version: 1.0
  */
-public class Util {
+public class Utils {
 
     public static List<Card> shuffle(){
         String[] colors = {"square", "heart", "spade", "club"};

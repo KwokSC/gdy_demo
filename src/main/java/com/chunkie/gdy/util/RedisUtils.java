@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
  */
 
     @Service
-    public class RedisUtil {
+    public class RedisUtils {
     @Autowired
     private RedisTemplate redisTemplate;
 

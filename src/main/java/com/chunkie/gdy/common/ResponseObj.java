@@ -18,4 +18,5 @@ public class ResponseObj {
     private int code;
 
     private String msg;
+
 }
