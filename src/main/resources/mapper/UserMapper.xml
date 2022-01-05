@@ -3,18 +3,17 @@
 <mapper namespace="com.chunkie.gdy.mapper.UserMapper">
 
     <resultMap id="BaseResultMap" type="com.chunkie.gdy.entity.User">
-        <id column="id" jdbcType="VARCHAR" property="id"/>
-        <result column="password" jdbcType="INTEGER" property="password"/>
-        <result column="player_num" jdbcType="INTEGER" property="playerNum"/>
-        <result column="on_going" jdbcType="TINYINT" property="onGoing"/>
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_Name" jdbcType="VARCHAR" property="userName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
     </resultMap>
 
-    <select id="selectRoomByPwd" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select * from room where password = #{password}
+    <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from user where user_name = #{userName}
     </select>
 
-    <insert id="createRoom" parameterType="com.chunkie.gdy.entity.Room">
-        insert into room(id, password, player_num, on_going)
-        values (#{id}, #{password}, #{playerNum}, #{onGoing})
+    <insert id="addUser" parameterType="com.chunkie.gdy.entity.User">
+        insert into user(user_name, password)
+        values (#{userName}, #{password})
     </insert>
 </mapper>
