@@ -1,6 +1,7 @@
 package com.chunkie.gdy.mapper;
 
 import com.chunkie.gdy.entity.User;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @Description:
@@ -10,7 +11,10 @@ import com.chunkie.gdy.entity.User;
  * @Version: 1.0
  */
 
+@Mapper
 public interface UserMapper {
 
     User selectByUserName(String userName);
+
+    int addUser(User user);
 }

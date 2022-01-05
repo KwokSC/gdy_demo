@@ -1,91 +1,95 @@
 package com.chunkie.gdy.util;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.stereotype.Component;
 
-import com.chunkie.gdy.common.Constants;
-import com.chunkie.gdy.common.ResponseObj;
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
-import io.jsonwebtoken.*;
-
-
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @Description:
- * @ClassName: JwtUtil
+ * @ClassName: JwtUtils
  * @Author: SichengGuo
- * @Date: 2022/1/5 10:23
+ * @Date: 2022/1/5 15:06
  * @Version: 1.0
  */
+
+@Slf4j
+@Component
 public class JwtUtils {
+    /** 存放token的请求头对应的key的名字 */
+
+    private static String headerKey = "token";
+
+    /** 加密的secret */
+
+    private static String secret = "zxyTestSecret";
+
+    /** 过期时间，单位为秒 */
+
+    private static long expire = 1800L*12;
+
+    static {
+        // TODO 上面变量的值应该从配置文件中读取,方便测试这里就不从配置文件中读取
+        // 利用配置文件中的值覆盖静态变量初始化的值
+    }
+
+
     /**
-     * 签发JWT
-     * @param id
-     * @param name
-     * @param ttlMillis
-     * @return  String
+     *
+     * 生成jwt token
      *
      */
-    public static String createJWT(String id, String name, long ttlMillis) {
-        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-        long nowMillis = System.currentTimeMillis();
-        Date now = new Date(nowMillis);
-        SecretKey secretKey = generalKey();
-        JwtBuilder builder = Jwts.builder()
-                .setId(id)
-                .setSubject(name)   // 主题
-                .setIssuer("user")     // 签发者
-                .setIssuedAt(now)      // 签发时间
-                .signWith(signatureAlgorithm, secretKey); // 签名算法以及密匙
-        if (ttlMillis >= 0) {
-            long expMillis = nowMillis + ttlMillis;
-            Date expDate = new Date(expMillis);
-            builder.setExpiration(expDate); // 过期时间
-        }
-        return builder.compact();
-    }
-    /**
-     * 验证JWT
-     * @param jwtStr
-     * @return
-     */
-    public static ResponseObj validateJWT(String jwtStr) {
-        ResponseObj checkResult = new ResponseObj();
-        Claims claims = null;
-        try {
-            claims = parseJWT(jwtStr);
-            checkResult.setCode(Constants.Code.NORMAL);
-        } catch (ExpiredJwtException e) {
-            checkResult.setCode(Constants.Code.EXCEPTION);
-            checkResult.setMsg(Constants.Msgs.FAIL);
-        } catch (SignatureException e) {
-            checkResult.setCode(Constants.Code.EXCEPTION);
-            checkResult.setMsg(Constants.Msgs.FAIL);
-        } catch (Exception e) {
-            checkResult.setCode(Constants.Code.EXCEPTION);
-            checkResult.setMsg(Constants.Msgs.FAIL);
-        }
-        return checkResult;
-    }
-    public static SecretKey generalKey() {
-        byte[] encodedKey = Base64.decode(Constants.JWT_SECRET);
-        SecretKey key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
-        return key;
+    public String generateToken(Map<String, Object> map) {
+        // 过期时间
+        Date expireDate = new Date(System.currentTimeMillis() + expire * 1000);
+        return Jwts.builder()
+                .setHeaderParam("typ", "JWT") // 设置头部信息
+                .setClaims(map) // 装入自定义的用户信息
+                .setExpiration(expireDate) // token过期时间
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
     }
 
     /**
      *
-     * 解析JWT字符串
-     * @param jwt
-     * @return
-     * @throws Exception
+     * 校验token并解析token
+     *
+     * @param token
+     *
+     * @return Claims：它继承了Map,而且里面存放了生成token时放入的用户信息
+     *
      */
-    public static Claims parseJWT(String jwt) throws Exception {
-        SecretKey secretKey = generalKey();
-        return Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(jwt)
-                .getBody();
+
+    public Claims verifyAndGetClaimsByToken(String token) {
+        try {
+            /*
+             * 如果过期或者是被篡改，则会抛异常.
+             * 注意点：只有在生成token设置了过期时间(setExpiration(expireDate))才会校验是否过期，
+             * 可以参考源码io.jsonwebtoken.impl.DefaultJwtParser的299行。
+             * 拓展：利用不设置过期时间就不校验token是否过期的这一特性，我们不设置Expiration;
+             * 而采用自定义的字段来存放过期时间放在Claims（可以简单的理解为map）中;
+             * 通过token获取到Claims后自己写代码校验是否过期。
+             * 通过这思路，可以去实现对过期token的手动刷新
+             */
+            return Jwts.parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception e) {
+            log.debug("verify token error:[{}] ", ExceptionUtils.getStackTrace(e));
+            return null;
+        }
     }
+
+    public static String getHeaderKey() {
+        return headerKey;
+    }
+
 }

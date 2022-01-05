@@ -11,9 +11,6 @@ import io.netty.buffer.ByteBuf;
  */
 public interface Constants {
 
-    String JWT_SECRET = "chunkie0518";
-    long JWT_TTL = 12L;
-
     interface Msgs{
         String SUCCESS = "请求成功";
         String FAIL = "请求失败";

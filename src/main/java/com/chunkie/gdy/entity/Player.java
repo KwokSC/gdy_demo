@@ -14,7 +14,9 @@ import java.util.List;
  */
 
 @Data
-public class Player extends User {
+public class Player {
+
+    private String name;
 
     private Boolean ready;
 
@@ -22,7 +24,8 @@ public class Player extends User {
 
     private List<Card> handCard;
 
-    public Player(String id, String name){
+    public Player(String name){
+        this.name = name;
         this.ready = false;
         this.score = 0;
         this.handCard = new ArrayList<>();

@@ -4,13 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.SetOperations;
-import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,8 +21,12 @@ import org.springframework.stereotype.Service;
 
     @Service
     public class RedisUtils {
+
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     /**
      * 写入缓存
@@ -120,6 +122,14 @@ import org.springframework.stereotype.Service;
         ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
         result = operations.get(key);
         return result;
+    }
+
+    public <T> T getObject(String key, Class<T> clazz) {
+        String s = stringRedisTemplate.opsForValue().get(key);
+        if (StrUtil.isBlank(s)) {
+            return null;
+        }
+        return JSONObject.parseObject(s, clazz);
     }
 
     /**
