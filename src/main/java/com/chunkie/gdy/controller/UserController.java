@@ -7,10 +7,10 @@ import com.chunkie.gdy.service.UserService;
 import com.chunkie.gdy.util.JwtUtils;
 import com.chunkie.gdy.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -54,7 +54,8 @@ public class UserController {
             responseObj.setCode(Constants.Code.EXCEPTION);
         }else{
             String token = jwtUtils.generateToken(loginInfo);
-            redisUtils.set(token, user);
+            String s = JSONObject.toJSONString(user);
+            redisUtils.set(token, s);
             responseObj.setData(token);
             responseObj.setCode(Constants.Code.NORMAL);
             responseObj.setMsg(Constants.Msgs.SUCCESS);

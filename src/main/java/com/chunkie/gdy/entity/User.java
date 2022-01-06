@@ -2,6 +2,8 @@ package com.chunkie.gdy.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @Description:
  * @ClassName: User

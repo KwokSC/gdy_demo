@@ -7,9 +7,10 @@ import java.util.concurrent.TimeUnit;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * @Description:
@@ -19,13 +20,13 @@ import org.springframework.stereotype.Service;
  * @Version: 1.0
  */
 
-    @Service
+    @Component
     public class RedisUtils {
 
-    @Autowired
+    @Resource
     private RedisTemplate redisTemplate;
 
-    @Autowired
+    @Resource
     private StringRedisTemplate stringRedisTemplate;
 
     /**
@@ -129,6 +130,8 @@ import org.springframework.stereotype.Service;
         if (StrUtil.isBlank(s)) {
             return null;
         }
+        s=s.replace("\\", "");
+        s=s.substring(1,s.length()-1);
         return JSONObject.parseObject(s, clazz);
     }
 
