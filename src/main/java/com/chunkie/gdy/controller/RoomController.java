@@ -40,7 +40,6 @@ public class RoomController {
         redisUtils.set(room.getId(), room);
         responseObj.setMsg(Constants.Msgs.SUCCESS);
         responseObj.setCode(Constants.Code.NORMAL);
-        responseObj.setData(room.getId());
         return responseObj;
     }
 
