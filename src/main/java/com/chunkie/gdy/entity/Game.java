@@ -2,6 +2,8 @@ package com.chunkie.gdy.entity;
 
 import com.chunkie.gdy.util.CardType;
 import lombok.Data;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +15,9 @@ import java.util.List;
  */
 
 @Data
-public class Game extends Room {
+public class Game {
+
+    private List<Player> players;
 
     private List<Card> lastDraw;
 
@@ -21,4 +25,8 @@ public class Game extends Room {
 
     private Player lastDrawer;
 
+    public Game(){
+        this.players = new ArrayList<>();
+        this.lastDraw = new ArrayList<>();
+    }
 }

@@ -2,7 +2,6 @@ package com.chunkie.gdy.entity;
 
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -22,33 +21,23 @@ public class Room {
 
     private Integer playerNum;
 
-    private Integer password;
-
     private Boolean onGoing;
 
-    private Player host;
+    private User host;
 
-    private List<Player> players;
+    private List<User> users;
 
     public Room(){
-        this.id = UUID.randomUUID().toString().substring(16);
+        this.id = UUID.randomUUID().toString().substring(6);
         this.onGoing = false;
-        this.players = new ArrayList<>();
+        this.users = new ArrayList<>();
     }
 
-    public Room(Integer playerNum, Integer password) {
-        this.id = UUID.randomUUID().toString().substring(16);
-        this.playerNum = playerNum;
-        this.password = password;
-        this.onGoing = false;
-        this.players = new ArrayList<>(playerNum);
+    public Boolean addUser(User user){
+        return this.users.add(user);
     }
 
-    public Boolean addPlayer(Player player){
-        return this.players.add(player);
-    }
-
-    public Boolean removePlayer(Player player){
-        return this.players.remove(player);
+    public Boolean removeUser(User user){
+        return this.users.remove(user);
     }
 }
