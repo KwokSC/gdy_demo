@@ -5,6 +5,7 @@ import com.chunkie.gdy.service.GameService;
 import com.chunkie.gdy.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,9 +26,9 @@ public class GameController {
     private GameService gameService;
 
     @RequestMapping("/on")
-    public ResponseObj gameOn(String id, HttpServletRequest request){
+    public ResponseObj gameOn(@RequestParam String id){
         ResponseObj responseObj = new ResponseObj();
-        gameService.initialGame(id, request);
+        gameService.initialGame(id);
         return responseObj;
     }
 }

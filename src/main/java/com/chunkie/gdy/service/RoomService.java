@@ -2,15 +2,14 @@ package com.chunkie.gdy.service;
 
 import com.chunkie.gdy.common.Constants;
 import com.chunkie.gdy.common.ResponseObj;
-import com.chunkie.gdy.entity.Game;
 import com.chunkie.gdy.entity.Player;
 import com.chunkie.gdy.entity.Room;
 import com.chunkie.gdy.entity.User;
 import com.chunkie.gdy.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.crypto.MacSpi;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +38,7 @@ public class RoomService {
         room.setHost(player);
         room.getPlayers().add(player);
         roomList.add(room);
+        responseObj.setData(room.getId());
         responseObj.setMsg(Constants.Msgs.SUCCESS);
         responseObj.setCode(Constants.Code.NORMAL);
         return responseObj;
@@ -49,11 +49,13 @@ public class RoomService {
         User user  = redisUtils.getObject(request.getHeader("token"), User.class);
         Player player = new Player(user.getUserName());
         for (Room room : roomList){
-            if (room.getId().equals(id)) {
+            if (room.getId().equals(id) && room.getOnGoing().equals(false)) {
                 room.getPlayers().add(player);
                 break;
             }
         }
+        responseObj.setCode(Constants.Code.NORMAL);
+        responseObj.setMsg(Constants.Msgs.SUCCESS);
         return responseObj;
     }
 
@@ -62,11 +64,21 @@ public class RoomService {
         User user  = redisUtils.getObject(request.getHeader("token"), User.class);
         Player player = new Player(user.getUserName());
         for (Room room : roomList) {
-            if (room.getId().equals(id)) {
+            if (room.getId().equals(id) && room.getOnGoing().equals(false)) {
                 room.getPlayers().remove(player);
                 break;
             }
         }
+        responseObj.setCode(Constants.Code.NORMAL);
+        responseObj.setMsg(Constants.Msgs.SUCCESS);
         return responseObj;
+    }
+
+    public Room findRoomById(String id){
+        for(Room room : roomList){
+            if(room.getId().equals(id))
+                return room;
+        }
+        return null;
     }
 }

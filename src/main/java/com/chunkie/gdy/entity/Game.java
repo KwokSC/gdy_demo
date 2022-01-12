@@ -17,6 +17,8 @@ import java.util.List;
 @Data
 public class Game {
 
+    private List<Card> cardDeck;
+
     private List<Player> players;
 
     private List<Card> lastDraw;
@@ -25,8 +27,9 @@ public class Game {
 
     private Player lastDrawer;
 
-    public Game(){
-        this.players = new ArrayList<>();
+    public Game(List<Player> players, Player lastDrawer){
+        this.players = players;
         this.lastDraw = new ArrayList<>();
+        this.setLastDrawer(lastDrawer);
     }
 }
