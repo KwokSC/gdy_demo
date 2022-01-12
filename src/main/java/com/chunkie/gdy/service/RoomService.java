@@ -35,8 +35,9 @@ public class RoomService {
         ResponseObj responseObj = new ResponseObj();
         String token = request.getHeader("token");
         User user  = redisUtils.getObject(token, User.class);
-        room.setHost(user);
-        room.getUsers().add(user);
+        Player player = new Player(user.getUserName());
+        room.setHost(player);
+        room.getPlayers().add(player);
         roomList.add(room);
         responseObj.setMsg(Constants.Msgs.SUCCESS);
         responseObj.setCode(Constants.Code.NORMAL);
@@ -46,9 +47,10 @@ public class RoomService {
     public ResponseObj joinRoom(String id, HttpServletRequest request){
         ResponseObj responseObj = new ResponseObj();
         User user  = redisUtils.getObject(request.getHeader("token"), User.class);
+        Player player = new Player(user.getUserName());
         for (Room room : roomList){
             if (room.getId().equals(id)) {
-                room.addUser(user);
+                room.getPlayers().add(player);
                 break;
             }
         }
@@ -58,35 +60,13 @@ public class RoomService {
     public ResponseObj exitRoom(String id, HttpServletRequest request){
         ResponseObj responseObj = new ResponseObj();
         User user  = redisUtils.getObject(request.getHeader("token"), User.class);
+        Player player = new Player(user.getUserName());
         for (Room room : roomList) {
             if (room.getId().equals(id)) {
-                room.removeUser(user);
+                room.getPlayers().remove(player);
                 break;
             }
         }
         return responseObj;
     }
-
-    public Game startGame(@RequestParam String id, HttpServletRequest request){
-        Game game = new Game();
-        for (Room room : roomList) {
-            if (room.getId().equals(id)) {
-                room.setOnGoing(true);
-                for (User user : room.getUsers()){
-                    if (user.equals(room.getHost())){
-                        Player player = new Player(user.getUserName());
-                        game.getPlayers().add(player);
-                        game.setLastDrawer(player);
-                    }
-                    else{
-                        Player player = new Player(user.getUserName());
-                        game.getPlayers().add(player);
-                    }
-                }
-                break;
-            }
-        }
-        return game;
-    }
-
 }

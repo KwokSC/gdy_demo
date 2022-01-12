@@ -1,10 +1,7 @@
 package com.chunkie.gdy.controller;
 
 import com.chunkie.gdy.common.ResponseObj;
-import com.chunkie.gdy.entity.Game;
-import com.chunkie.gdy.entity.Player;
 import com.chunkie.gdy.entity.Room;
-import com.chunkie.gdy.entity.User;
 import com.chunkie.gdy.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Description:

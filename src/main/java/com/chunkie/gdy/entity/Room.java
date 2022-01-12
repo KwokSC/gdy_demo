@@ -23,21 +23,21 @@ public class Room {
 
     private Boolean onGoing;
 
-    private User host;
+    private Player host;
 
-    private List<User> users;
+    private List<Player> players;
 
     public Room(){
         this.id = UUID.randomUUID().toString().substring(6);
         this.onGoing = false;
-        this.users = new ArrayList<>();
+        this.players = new ArrayList<>();
     }
 
-    public Boolean addUser(User user){
-        return this.users.add(user);
+    public Boolean addUser(Player player){
+        return this.players.add(player);
     }
 
-    public Boolean removeUser(User user){
-        return this.users.remove(user);
+    public Boolean removeUser(Player player){
+        return this.players.remove(player);
     }
 }
