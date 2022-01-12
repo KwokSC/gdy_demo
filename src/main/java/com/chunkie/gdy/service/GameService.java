@@ -1,5 +1,7 @@
 package com.chunkie.gdy.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * @Description:
  * @ClassName: GameService
@@ -8,4 +10,7 @@ package com.chunkie.gdy.service;
  * @Version: 1.0
  */
 public class GameService {
+
+    @Autowired
+    private RoomService roomService;
 }
