@@ -28,8 +28,6 @@ import java.util.List;
 @RequestMapping("/room")
 public class RoomController {
 
-    private List<Room> roomList = new ArrayList<>();
-
     @Autowired
     private RoomService roomService;
 
@@ -46,28 +44,5 @@ public class RoomController {
     @RequestMapping("/exit")
     public ResponseObj exitRoom(@RequestParam String id, HttpServletRequest request){
         return roomService.exitRoom(id, request);
-    }
-
-    @RequestMapping("/start")
-    public Game startGame(@RequestParam String id, HttpServletRequest request){
-        Game game = new Game();
-        for (Room room : roomList) {
-            if (room.getId().equals(id)) {
-                room.setOnGoing(true);
-                for (User user : room.getUsers()){
-                    if (user.equals(room.getHost())){
-                        Player player = new Player(user.getUserName());
-                        game.getPlayers().add(player);
-                        game.setLastDrawer(player);
-                    }
-                    else{
-                        Player player = new Player(user.getUserName());
-                        game.getPlayers().add(player);
-                    }
-                }
-                break;
-            }
-        }
-        return game;
     }
 }

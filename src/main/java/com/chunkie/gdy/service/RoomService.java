@@ -2,13 +2,18 @@ package com.chunkie.gdy.service;
 
 import com.chunkie.gdy.common.Constants;
 import com.chunkie.gdy.common.ResponseObj;
+import com.chunkie.gdy.entity.Game;
+import com.chunkie.gdy.entity.Player;
 import com.chunkie.gdy.entity.Room;
 import com.chunkie.gdy.entity.User;
 import com.chunkie.gdy.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Description:
@@ -20,6 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class RoomService {
+
+    private List<Room> roomList = new ArrayList<>();
 
     @Autowired
     private RedisUtils redisUtils;
@@ -60,5 +67,26 @@ public class RoomService {
         return responseObj;
     }
 
+    public Game startGame(@RequestParam String id, HttpServletRequest request){
+        Game game = new Game();
+        for (Room room : roomList) {
+            if (room.getId().equals(id)) {
+                room.setOnGoing(true);
+                for (User user : room.getUsers()){
+                    if (user.equals(room.getHost())){
+                        Player player = new Player(user.getUserName());
+                        game.getPlayers().add(player);
+                        game.setLastDrawer(player);
+                    }
+                    else{
+                        Player player = new Player(user.getUserName());
+                        game.getPlayers().add(player);
+                    }
+                }
+                break;
+            }
+        }
+        return game;
+    }
 
 }
