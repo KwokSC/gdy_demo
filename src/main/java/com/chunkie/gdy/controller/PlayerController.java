@@ -2,26 +2,22 @@ package com.chunkie.gdy.controller;
 
 import com.chunkie.gdy.common.ResponseObj;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Description:
- * @ClassName: GameController
+ * @ClassName: PlayerController
  * @Author: SichengGuo
- * @Date: 2021/12/30 11:31
+ * @Date: 2022/1/12 9:47
  * @Version: 1.0
  */
 
-@RestController
-@RequestMapping("/game")
-public class GameController {
+@RequestMapping("/player")
+public class PlayerController {
 
-
-
-    @RequestMapping("/start")
-    public ResponseObj initialGame(){
+    @RequestMapping("/ready")
+    public ResponseObj setReady(){
         ResponseObj responseObj = new ResponseObj();
-        
+
         return responseObj;
     }
 }
