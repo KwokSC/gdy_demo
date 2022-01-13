@@ -1,18 +1,21 @@
 package com.chunkie.gdy.controller;
 
-import com.chunkie.gdy.entity.Card;
-import com.chunkie.gdy.service.CardService;
+import com.chunkie.gdy.common.ResponseObj;
+import com.chunkie.gdy.entity.Room;
+import com.chunkie.gdy.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Description:
  * @ClassName: RoomController
  * @Author: SichengGuo
- * @Date: 2021/12/14 16:19
+ * @Date: 2021/12/30 11:49
  * @Version: 1.0
  */
 
@@ -21,20 +24,20 @@ import java.util.List;
 public class RoomController {
 
     @Autowired
-    CardService cardService;
+    private RoomService roomService;
 
     @RequestMapping("/create")
-    public void createRoom(){
-
+    public ResponseObj createRoom(@RequestBody Room room, HttpServletRequest request){
+        return roomService.createRoom(room, request);
     }
 
     @RequestMapping("/join")
-    public void joinRoom(){
-
+    public ResponseObj joinRoom(@RequestParam String id, HttpServletRequest request){
+        return roomService.joinRoom(id, request);
     }
 
-    @RequestMapping("/start")
-    public void gameStart(){
-        List<Card> cardDeck = cardService.shuffle();
+    @RequestMapping("/exit")
+    public ResponseObj exitRoom(@RequestParam String id, HttpServletRequest request){
+        return roomService.exitRoom(id, request);
     }
 }

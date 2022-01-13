@@ -8,6 +8,7 @@ class GdyApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }

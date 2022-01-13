@@ -2,7 +2,9 @@ package com.chunkie.gdy.entity;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @Description:
@@ -19,11 +21,23 @@ public class Room {
 
     private Integer playerNum;
 
-    private Integer password;
+    private Boolean onGoing;
 
     private Player host;
 
     private List<Player> players;
 
-    private Boolean onGoing;
+    public Room(){
+        this.id = UUID.randomUUID().toString().substring(6);
+        this.onGoing = false;
+        this.players = new ArrayList<>();
+    }
+
+    public Boolean addUser(Player player){
+        return this.players.add(player);
+    }
+
+    public Boolean removeUser(Player player){
+        return this.players.remove(player);
+    }
 }

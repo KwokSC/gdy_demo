@@ -16,20 +16,30 @@ import java.util.List;
 @Data
 public class Player {
 
-    private String id;
+    private String name;
 
     private Boolean ready;
 
     private Integer score;
 
-    List<Card> handCard = new ArrayList<Card>();
+    private List<Card> handCard;
 
-    public void discard() {
-
+    public Player(String name){
+        this.name = name;
+        this.ready = false;
+        this.score = 0;
+        this.handCard = new ArrayList<>();
     }
 
-    public void drawCard(Card card) {
-
+    public Boolean draw(Card card) {
+        return this.handCard.add(card);
     }
 
+    public Boolean discard(List<Card> discardList) {
+        return this.handCard.removeAll(discardList);
+    }
+
+    public Boolean checkHand() {
+        return this.getHandCard().isEmpty();
+    }
 }

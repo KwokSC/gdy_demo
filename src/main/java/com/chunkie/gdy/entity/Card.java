@@ -15,9 +15,9 @@ public class Card {
 
     private String color;
 
-    private String point;
+    private Integer point;
 
-    public Card(String color, String point) {
+    public Card(String color, Integer point) {
         this.color = color;
         this.point = point;
     }

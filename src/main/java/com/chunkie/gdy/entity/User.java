@@ -2,11 +2,13 @@ package com.chunkie.gdy.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @Description:
  * @ClassName: User
  * @Author: SichengGuo
- * @Date: 2021/12/14 16:08
+ * @Date: 2022/1/4 15:00
  * @Version: 1.0
  */
 
@@ -14,5 +16,9 @@ import lombok.Data;
 public class User {
 
     private String id;
+
+    private String userName;
+
+    private String password;
 
 }
