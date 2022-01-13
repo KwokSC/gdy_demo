@@ -32,8 +32,8 @@ public class Game {
 
     private Player currentDrawer;
 
-    public Game(List<Player> players, Player lastDrawer){
-        this.id = UUID.randomUUID().toString().substring(6);
+    public Game(String id, List<Player> players, Player lastDrawer){
+        this.id = id;
         this.players = players;
         this.lastDraw = new ArrayList<>();
         this.setLastDrawer(lastDrawer);
