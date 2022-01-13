@@ -8,6 +8,8 @@ import com.chunkie.gdy.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * @Description:
@@ -20,6 +22,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class GameService {
 
+    private List<Game> gameList;
+
     @Autowired
     private RoomService roomService;
 
@@ -29,6 +33,13 @@ public class GameService {
         room.setOnGoing(true);
         Game game = new Game(room.getPlayers(), room.getHost());
         game.setCardDeck(Utils.shuffle());
+        responseObj.setCode(Constants.Code.NORMAL);
+        responseObj.setMsg(Constants.Msgs.SUCCESS);
+        return responseObj;
+    }
+
+    public ResponseObj gameProcess(){
+        ResponseObj responseObj = new ResponseObj();
         responseObj.setCode(Constants.Code.NORMAL);
         responseObj.setMsg(Constants.Msgs.SUCCESS);
         return responseObj;
