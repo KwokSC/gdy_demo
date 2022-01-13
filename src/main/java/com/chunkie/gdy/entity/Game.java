@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @Description:
@@ -17,6 +18,8 @@ import java.util.List;
 @Data
 public class Game {
 
+    private String id;
+
     private List<Card> cardDeck;
 
     private List<Player> players;
@@ -27,9 +30,13 @@ public class Game {
 
     private Player lastDrawer;
 
-    public Game(List<Player> players, Player lastDrawer){
+    private Player currentDrawer;
+
+    public Game(String id, List<Player> players, Player lastDrawer){
+        this.id = id;
         this.players = players;
         this.lastDraw = new ArrayList<>();
         this.setLastDrawer(lastDrawer);
+        this.setCurrentDrawer(lastDrawer);
     }
 }
