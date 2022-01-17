@@ -40,7 +40,7 @@ public class PlayerService {
     public ResponseObj playerSkip(String id){
         ResponseObj responseObj = new ResponseObj();
         Game game = gameService.findGameById(id);
-        game.setCurrentDrawer();
+        game.setCurrentDrawer(game.getPlayers().get(game.getPlayers().indexOf(game.getCurrentDrawer())+1));
         return responseObj;
     }
 }
