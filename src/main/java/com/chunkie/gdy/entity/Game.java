@@ -22,6 +22,10 @@ public class Game {
 
     private Integer playerNum;
 
+    private Integer multiple;
+
+    private Integer bonus;
+
     private List<Card> cardDeck;
 
     private List<Player> players;
@@ -37,6 +41,8 @@ public class Game {
     public Game(String id, List<Player> players, Player lastDrawer){
         this.id = id;
         this.players = players;
+        this.multiple = 1;
+        this.bonus = 0;
         this.playerNum = players.size();
         this.lastDraw = new ArrayList<>();
         this.setLastDrawer(lastDrawer);

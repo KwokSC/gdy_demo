@@ -3,14 +3,10 @@ package com.chunkie.gdy.service;
 
 import com.chunkie.gdy.common.Constants;
 import com.chunkie.gdy.common.ResponseObj;
-import com.chunkie.gdy.dto.Draw;
-import com.chunkie.gdy.entity.Card;
+import com.chunkie.gdy.dto.Discard;
 import com.chunkie.gdy.entity.Game;
 import com.chunkie.gdy.entity.Player;
-import com.chunkie.gdy.util.CardType;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 
 /**
@@ -25,14 +21,27 @@ public class PlayerService {
     @Autowired
     private GameService gameService;
 
-    public ResponseObj playerDiscard(Draw draw){
+    public ResponseObj playerDiscard(Discard discard){
         ResponseObj responseObj = new ResponseObj();
-        Game game = gameService.findGameById(draw.getId());
+        Game game = gameService.findGameById(discard.getId());
         Player player = game.getCurrentDrawer();
-        player.discard(draw.getDiscardList());
+        player.discard(discard.getDiscardList());
         game.setLastDrawer(game.getCurrentDrawer());
-        game.setLastType(draw.getCardType());
+        game.setLastType(discard.getCardType());
         game.setCurrentDrawer(getNextPlayer(game));
+        if (discard.getDiscardList().size() ==3 )
+            game.setMultiple(game.getMultiple() * 2);
+        else
+            game.setMultiple(game.getMultiple() * 4);
+        if (player.checkHand()) {
+            for (Player p : game.getPlayers()) {
+                if (p != game.getCurrentDrawer()) {
+                    p.setScore(p.getScore() - game.getMultiple() * p.getHandCard().size());
+                    game.setBonus(game.getBonus() + game.getMultiple() * p.getHandCard().size());
+                }
+            }
+            player.setScore(player.getScore() + game.getBonus());
+        }
         responseObj.setCode(Constants.Code.NORMAL);
         responseObj.setMsg(Constants.Msgs.SUCCESS);
         return responseObj;

@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @Data
-public class Draw {
+public class Discard {
 
     private String id;
 
