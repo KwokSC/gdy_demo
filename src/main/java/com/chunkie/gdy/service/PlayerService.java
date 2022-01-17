@@ -25,6 +25,10 @@ public class PlayerService {
         ResponseObj responseObj = new ResponseObj();
         Game game = gameService.findGameById(discard.getId());
         Player player = game.getCurrentDrawer();
+        if (player == game.getLastDrawer()){
+            player.draw(game.getCardDeck().get(game.getCardDeck().size()-1));
+            game.getCardDeck().remove(game.getCardDeck().size() - 1);
+        }
         player.discard(discard.getDiscardList());
         game.setLastDrawer(game.getCurrentDrawer());
         game.setLastType(discard.getCardType());

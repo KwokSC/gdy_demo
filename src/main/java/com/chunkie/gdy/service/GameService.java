@@ -41,7 +41,7 @@ public class GameService {
         Map<String, List<Card>> handCardList = new HashMap<>();
         for (Player player : game.getPlayers()) {
             for (int i = 0; i < 5; i++) {
-                player.getHandCard().add(game.getCardDeck().get(game.getCardDeck().size() - 1));
+                player.draw(game.getCardDeck().get(game.getCardDeck().size() - 1));
                 game.getCardDeck().remove(game.getCardDeck().size() - 1);
             }
             player.setHandCard(Utils.trim(player.getHandCard()));
