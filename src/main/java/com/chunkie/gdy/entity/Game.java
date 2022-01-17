@@ -38,14 +38,14 @@ public class Game {
 
     private Player currentDrawer;
 
-    public Game(String id, List<Player> players, Player lastDrawer){
+    public Game(String id, List<Player> players, Player player){
         this.id = id;
         this.players = players;
         this.multiple = 1;
         this.bonus = 0;
         this.playerNum = players.size();
         this.lastDraw = new ArrayList<>();
-        this.setLastDrawer(lastDrawer);
-        this.setCurrentDrawer(lastDrawer);
+        this.setLastDrawer(player);
+        this.setCurrentDrawer(player);
     }
 }

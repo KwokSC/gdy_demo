@@ -46,6 +46,7 @@ public class PlayerService {
             }
             player.setScore(player.getScore() + game.getBonus());
         }
+        responseObj.setData(game);
         responseObj.setCode(Constants.Code.NORMAL);
         responseObj.setMsg(Constants.Msgs.SUCCESS);
         return responseObj;
@@ -61,7 +62,7 @@ public class PlayerService {
     }
 
     public Player getNextPlayer(Game game){
-        if(game.getPlayers().indexOf(game.getCurrentDrawer())==game.getPlayerNum())
+        if(game.getPlayers().indexOf(game.getCurrentDrawer()) == game.getPlayerNum()-1)
             return game.getPlayers().get(0);
         else
             return game.getPlayers().get(game.getPlayers().indexOf(game.getCurrentDrawer())+1);
