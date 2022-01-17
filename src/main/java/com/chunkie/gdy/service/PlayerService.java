@@ -6,6 +6,7 @@ import com.chunkie.gdy.common.ResponseObj;
 import com.chunkie.gdy.dto.Draw;
 import com.chunkie.gdy.entity.Card;
 import com.chunkie.gdy.entity.Game;
+import com.chunkie.gdy.entity.Player;
 import com.chunkie.gdy.util.CardType;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,10 +28,19 @@ public class PlayerService {
     public ResponseObj playerDiscard(Draw draw){
         ResponseObj responseObj = new ResponseObj();
         Game game = gameService.findGameById(draw.getId());
-
+        Player player = game.getCurrentDrawer();
+        player.discard(draw.getDiscardList());
         game.setLastDrawer(game.getCurrentDrawer());
+        game.setLastType(draw.getCardType());
         responseObj.setCode(Constants.Code.NORMAL);
         responseObj.setMsg(Constants.Msgs.SUCCESS);
+        return responseObj;
+    }
+
+    public ResponseObj playerSkip(String id){
+        ResponseObj responseObj = new ResponseObj();
+        Game game = gameService.findGameById(id);
+        game.setCurrentDrawer();
         return responseObj;
     }
 }

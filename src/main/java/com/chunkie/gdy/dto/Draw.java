@@ -19,8 +19,6 @@ public class Draw {
 
     private String id;
 
-    private String drawer;
-
     private List<Card> discardList;
 
     private CardType cardType;
