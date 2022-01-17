@@ -32,6 +32,7 @@ public class PlayerService {
         player.discard(draw.getDiscardList());
         game.setLastDrawer(game.getCurrentDrawer());
         game.setLastType(draw.getCardType());
+        game.setCurrentDrawer(getNextPlayer(game));
         responseObj.setCode(Constants.Code.NORMAL);
         responseObj.setMsg(Constants.Msgs.SUCCESS);
         return responseObj;
@@ -40,7 +41,17 @@ public class PlayerService {
     public ResponseObj playerSkip(String id){
         ResponseObj responseObj = new ResponseObj();
         Game game = gameService.findGameById(id);
-        game.setCurrentDrawer(game.getPlayers().get(game.getPlayers().indexOf(game.getCurrentDrawer())+1));
+        game.setCurrentDrawer(getNextPlayer(game));
+        responseObj.setCode(Constants.Code.NORMAL);
+        responseObj.setMsg(Constants.Msgs.SUCCESS);
         return responseObj;
     }
+
+    public Player getNextPlayer(Game game){
+        if(game.getPlayers().indexOf(game.getCurrentDrawer())==game.getPlayerNum())
+            return game.getPlayers().get(0);
+        else
+            return game.getPlayers().get(game.getPlayers().indexOf(game.getCurrentDrawer())+1);
+    }
+
 }
