@@ -33,7 +33,7 @@ public class RoomService {
         ResponseObj responseObj = new ResponseObj();
         String token = request.getHeader("token");
         User user  = redisUtils.getObject(token, User.class);
-        Player player = new Player(user.getUserName());
+        Player player = new Player(user);
         room.setHost(player);
         room.getPlayers().add(player);
         roomList.add(room);
@@ -46,7 +46,7 @@ public class RoomService {
     public ResponseObj joinRoom(String id, HttpServletRequest request){
         ResponseObj responseObj = new ResponseObj();
         User user  = redisUtils.getObject(request.getHeader("token"), User.class);
-        Player player = new Player(user.getUserName());
+        Player player = new Player(user);
         for (Room room : roomList){
             if (room.getId().equals(id) && room.getOnGoing().equals(false)) {
                 room.getPlayers().add(player);
@@ -61,7 +61,7 @@ public class RoomService {
     public ResponseObj exitRoom(String id, HttpServletRequest request){
         ResponseObj responseObj = new ResponseObj();
         User user  = redisUtils.getObject(request.getHeader("token"), User.class);
-        Player player = new Player(user.getUserName());
+        Player player = new Player(user);
         for (Room room : roomList) {
             if (room.getId().equals(id) && room.getOnGoing().equals(false)) {
                 room.getPlayers().remove(player);

@@ -10,6 +10,7 @@ import com.chunkie.gdy.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,7 @@ import java.util.Map;
 @Service
 public class GameService {
 
-    private List<Game> gameList;
+    private List<Game> gameList = new ArrayList<>();
 
     @Autowired
     private RoomService roomService;
@@ -40,7 +41,7 @@ public class GameService {
         Map<String, List<Card>> handCardList = new HashMap<>();
         for (Player player : game.getPlayers()) {
             for (int i = 0; i < 5; i++) {
-                player.getHandCard().add(game.getCardDeck().get(game.getCardDeck().size() - 1));
+                player.draw(game.getCardDeck().get(game.getCardDeck().size() - 1));
                 game.getCardDeck().remove(game.getCardDeck().size() - 1);
             }
             player.setHandCard(Utils.trim(player.getHandCard()));

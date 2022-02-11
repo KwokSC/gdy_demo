@@ -24,8 +24,8 @@ public class Player {
 
     private List<Card> handCard;
 
-    public Player(String name){
-        this.name = name;
+    public Player(User user){
+        this.name = user.getUserName();
         this.ready = false;
         this.score = 0;
         this.handCard = new ArrayList<>();
