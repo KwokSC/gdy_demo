@@ -1,7 +1,5 @@
 package com.chunkie.gdy.common;
 
-import io.netty.buffer.ByteBuf;
-
 /**
  * @Description:
  * @ClassName: MsgConstants

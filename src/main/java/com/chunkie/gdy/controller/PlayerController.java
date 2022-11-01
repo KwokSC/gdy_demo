@@ -2,6 +2,7 @@ package com.chunkie.gdy.controller;
 
 import com.chunkie.gdy.common.ResponseObj;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Description:
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Version: 1.0
  */
 
+@RestController
 @RequestMapping("/player")
 public class PlayerController {
 
