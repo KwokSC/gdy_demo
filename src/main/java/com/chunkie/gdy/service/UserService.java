@@ -7,6 +7,7 @@ import com.chunkie.gdy.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.awt.geom.RectangularShape;
 
 
@@ -21,7 +22,7 @@ import java.awt.geom.RectangularShape;
 @Service
 public class UserService {
 
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     public ResponseObj login(User user){
